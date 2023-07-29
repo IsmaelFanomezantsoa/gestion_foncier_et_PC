@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information sur le terrain{% endblock %}
+
+{% block body %}
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>A propos du terrain </h3>  
+    </div>
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+ 
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">N_certificat : <span style="font-weight: normal">{{terrainCf.getNCertificat}}</span></h6>  
+        <h6  class="col">Nom certificat: <span style="font-weight: normal">{{terrainCf.getNomTerrainCf}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Fokotany : <span style="font-weight: normal">{{terrainCf.getFkt}}</span></h6>  
+        <h6  class="col">Superficie : <span style="font-weight: normal">{{terrainCf.getSuperficie}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Zone PUDi : <span style="font-weight: normal">{{terrainCf.getZonePudi}}</span></h6>  
+        <h6  class="col">Contenance : <span style="font-weight: normal">{{terrainCf.getNCertificat}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Nom proprietaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getNom}} {{terrainCf.getProprietaire.getPrenom}}</span></h6>  
+        <h6  class="col">CIN proprietaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getCin}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">adresse : <span style="font-weight: normal">{{terrainCf.getProprietaire.getAdresse}}</span></h6>  
+        <h6  class="col">Télephone : <span style="font-weight: normal">{{terrainCf.getProprietaire.getTelephone}}</span></h6>  
+    </div><hr>
+    
+    <div  class=" row mb-2 mt-3">
+        <img  class="img-fluid img-thumbnail" style = "width : 100% ; height : auto ; object-fit : cover; " src={{ asset('uploads/Image_du_plan_terrain_cf/' ~ terrainCf.getImage) }} alt"image du terrain"/>
+    </div>
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 13%; margin : auto">
+    <hr class="mb-3" style="width : 7%; margin : auto">
+
+
+
+{% endblock %}
+{% block javascript %}
+     
+{% endblock %}  

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression du terrain{% endblock %}
+
+{% block body %}
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>Voulez-vous vraiment supprimer ce terrain</h3>  
+    </div>
+        <hr class="mb-3" style="width : 50% ; margin : auto">
+        <hr class="mb-3" style="width : 25%; margin : auto">
+    <div style="display:flex; justify-content : center" class="mt-5">
+        <a class="btn btn-default" href={{path('app_admin_terrain_titre')}}>Annuler</a>
+        <a class="btn btn-danger" href={{deleteConfirmationLink}}>Supprimer</a>
+    </div>
+
+
+{% endblock %}
+{% block javascript %}
+     
+{% endblock %}  

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{titre}}{% endblock %}
+
+{% block body %}
+    <div class="title mt-2 " style =" display  : flex ; aling-items: center; justify-content : center">
+        <h1>{{titre}}</h1>
+    </div>
+    <div >
+         {{form_start(form)}}
+            <div class="row">
+                <div class="col">
+                    {{form_row(form.n_certificat)}}
+                </div>
+                <div class="col">
+                    {{form_row(form.fkt)}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form_row(form.zonePudi)}}
+                </div>
+                <div class="col">
+                    {{form_row(form.superficie)}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form_row(form.nomTerrainCf)}}
+                </div>
+                <div class="col">
+                    {# {{form_row(form.cin_proprietaire)}} #}
+                    <label>CIN du proprietaire :</label>
+                    <input class="form form-control mt-2" name="cin proprietaire">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{form_row(form.image)}}
+                </div>
+                
+                
+            </div>
+         {{form_end(form)}}
+    </div>
+
+
+
+{% endblock %}
+{% block javascript %}
+     
+{% endblock %}  
