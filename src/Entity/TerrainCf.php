@@ -33,7 +33,7 @@ class TerrainCf
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(inversedBy: 'terrainCfs')]
+    #[ORM\ManyToOne(inversedBy: 'terrainCfs' )]
     private ?ProprietaireTerrainCf $proprietaire = null;
 
     #[ORM\OneToMany(mappedBy: 'terrainCf', targetEntity: Contenance::class)]

@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\TerrainTitreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; 
 
 #[ORM\Entity(repositoryClass: TerrainTitreRepository::class)]
 class TerrainTitre
@@ -33,7 +33,7 @@ class TerrainTitre
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(inversedBy: 'terrainTitres')]
+    #[ORM\ManyToOne(inversedBy: 'terrainTitres'  )]
     private ?ProprietaireTerrainTitre $proprietaireTerrainTitre = null;
 
     #[ORM\OneToMany(mappedBy: 'terrainTitre', targetEntity: Contenance::class)]

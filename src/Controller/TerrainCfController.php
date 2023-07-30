@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contenance;
 use App\Entity\ProprietaireTerrainCf;
 use App\Entity\TerrainCf;
 use App\Form\TerrainCfType;
@@ -94,12 +95,16 @@ class TerrainCfController extends AbstractController
         
     }
     
-    #[Route('admin/terrain/cf/show/{id}', name: 'app_admin_show_terrain_cf')]
-    public function AffichageTerrainCf( TerrainCf $terrainCf , ManagerRegistry $doctrine): Response
+    #[Route('admin/terrain/cf/show/{id?0<\d+>}', name: 'app_admin_show_terrain_cf', requirements: ['id' => '\d+'])]
+    public function AffichageTerrainCf( $id ,TerrainCf $terrainCf , ManagerRegistry $doctrine): Response
     {
+        $repository = $doctrine->getRepository(Contenance::class);
+        $contenance = $repository->findBy(['terrainCf'=> $id]);
+        
         
         return $this->render('terrain_Cf/showTerrainCf.html.twig', [
-            "terrainCf"=> $terrainCf
+            "terrainCf"=> $terrainCf,
+            'contenances'=> $contenance
         ]);
     }
 
@@ -124,7 +129,7 @@ class TerrainCfController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/c/delete/{id}', name: 'app_admin_delete_terrain_cf')]
+    #[Route('admin/terrain/cf/delete/{id}', name: 'app_admin_delete_terrain_cf')]
     public function deleteTerrainTitre(TerrainCf $terrainCf = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainCf) {
@@ -141,5 +146,55 @@ class TerrainCfController extends AbstractController
         return $this->redirectToRoute("app_admin_terrain_cf");
     }
 
+    //////////////
 
+    
+    //////////////////////
+    #[Route('admin/terrain/cf/confirmationDeleteContenanceTerrainCf/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_cf')]
+    public function deleteContenanceTerrainCfConfirmation(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
+    {
+        if (!$contenance) {
+            $this->addFlash("danger", "La contenace que vous voulez supprimer n'existe pas");
+            return $this->redirectToRoute("app_admin_terrain_cf");
+        }
+
+        // Si l'utilisateur confirme la suppression, le lien de confirmation doit pointer vers la page de suppression
+        $deleteConfirmationLink = $this->generateUrl('app_admin_delete_contenance_terrain_cf', ['id' => $id]);
+        $idTerrain = $contenance->getTerrainCf()->getId();
+        $urlCancel = $this->generateUrl('app_admin_show_terrain_cf', ['id' => $idTerrain]);
+
+        return $this->render('terrain_cf/deleteConfirmationPageContenance.html.twig', [
+            'contenance' => $contenance,
+            'deleteConfirmationLink' => $deleteConfirmationLink,
+            "urlCancel" => $urlCancel
+        ]);
+    }
+
+    #[Route('admin/terrain/cf/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_cf')]
+    public function deleteContenanceTerrainCf(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
+    {
+       
+        if (!$contenance) {
+            $this->addFlash("danger", "La contenance que vous voulez supprimer n'existe pas");
+            return $this->redirectToRoute("app_admin_terrain_titre");
+        }
+
+        $idTerrainCf = $contenance->getTerrainCf()->getId();
+        $urlAfterDelete = $this->generateUrl('app_admin_show_terrain_cf', ['id' => $idTerrainCf]);
+
+
+
+        // Supprimez effectivement le terrain
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($contenance);
+        $entityManager->flush();
+
+        $this->addFlash("success", "Contenance supprimée avec succès");
+        return $this->redirect($urlAfterDelete);
+    }
+
+
+
+
+    ////////////
 }

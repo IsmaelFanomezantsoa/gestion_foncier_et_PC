@@ -22,14 +22,51 @@
         <h6  class="col">Contenance : <span style="font-weight: normal">{{terrainCf.getNCertificat}}</span></h6>  
     </div><hr>
     <div  class=" row mb-2 mt-3">
-        <h6 class="col">Nom proprietaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getNom}} {{terrainCf.getProprietaire.getPrenom}}</span></h6>  
+        <h6 class="col">Propriétaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getNom}} {{terrainCf.getProprietaire.getPrenom}}</span></h6>  
         <h6  class="col">CIN proprietaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getCin}}</span></h6>  
     </div><hr>
     <div  class=" row mb-2 mt-3">
         <h6 class="col">adresse : <span style="font-weight: normal">{{terrainCf.getProprietaire.getAdresse}}</span></h6>  
         <h6  class="col">Télephone : <span style="font-weight: normal">{{terrainCf.getProprietaire.getTelephone}}</span></h6>  
     </div><hr>
-    
+
+    {# ///////////////// #}
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>Contenances </h3>  
+    </div>
+     <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <div class="container " style=" display  : flex ; aling-items: center; justify-content : flex-start">
+        <a class="btn btn-primary text-center mb-3" style="width : 30% " href={{path('app_admin_terrain_titre_edit_contenance')}}><i class="fa fa-plus"> </i> Ajouter un nouveau contenance</a>
+        {# <a class="btn btn-primary text-center mb-3" style="width : 30% " href={{path('app_admin_terrain_titre_edit_contenance')}}><i class="fa fa-plus"> </i> Ajouter un nouveau terrain titré</a> #}
+
+    </div>
+
+{# /////////// #}
+    <div class="content">
+        <table id ="table_id" class="table  table-striped table-bordered ">
+            <thead class=" table-primary text-center" style="font-weight:bold">
+                <td class=" table-primary text-center">Usage Batiment</td>
+                <td class=" table-primary text-center">Surface Occupé</td>
+                <td class=" table-primary text-center">Action</td>
+            </thead>
+            {% for contenance in contenances %}
+            
+                <tr>
+                    <td class="text-center"  style="font-weight:bold">{{ contenance.getUsageBatimentContenance}}</td>
+                    <td class="text-center ">{{ contenance.getSurfaceOccupeContenance}}</td>
+                    {# <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"> <a href={{path('app_admin_terrain_titre_edit_contenance'  , {id: contenance.id})}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href= {{path('app_admin_confirmation_delete_contenance_terrain_titre' , {id : contenance.id})}} class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td> #}
+                    <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"> <a href="#" class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href= {{path('app_admin_confirmation_delete_contenance_terrain_cf' , {id : contenance.id})}}  class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td>
+                </tr>
+                 
+             
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+{# ///////////// #}
     <div  class=" row mb-2 mt-3">
         <img  class="img-fluid img-thumbnail" style = "width : 100% ; height : auto ; object-fit : cover; " src={{ asset('uploads/Image_du_plan_terrain_cf/' ~ terrainCf.getImage) }} alt"image du terrain"/>
     </div>

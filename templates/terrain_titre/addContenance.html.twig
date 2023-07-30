@@ -10,23 +10,17 @@
          {{form_start(form)}}
             <div class="row">
                 <div class="col">
-                    {{form_row(form.n_titre)}}
+                    {{form_row(form.usageBatimentContenance)}}
                 </div>
                 <div class="col">
-                    {{form_row(form.fkt)}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{form_row(form.zonePudi)}}
-                </div>
-                <div class="col">
-                    {{form_row(form.superficie)}}
+                    {{form_row(form.surfaceOccupeContenance)}}
                 </div>
             </div>
+             
             <div class="row">
-                <div class="col">
-                    {{form_row(form.nomTerrainTitre)}}
+                <div class="col"> 
+                    <label>N_titre du terrain :</label>
+                    <input class="form form-control mt-2" name="n titre">
                 </div>
                 <div class="col">
                     {# {{form_row(form.cin_proprietaire)}} #}
@@ -34,13 +28,7 @@
                     <input class="form form-control mt-2" name="cin proprietaire">
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    {{form_row(form.image)}}
-                </div>
-                
-                
-            </div>
+             
          {{form_end(form)}}
     </div>
 

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Information sur le proprietaire{% endblock %}
+{% block css %}
+<style> 
+   
+    th,
+    td {
+    width: 80px; /* Par exemple, une largeur fixe de 200 pixels */
+    max-width: 80px; /* Pour s'assurer que la largeur ne dépasse pas 200 pixels */
+    white-space: nowrap; /* Pour empêcher le retour à la ligne du contenu */
+    overflow: hidden; /* Pour cacher le contenu débordant */
+    text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
+    }
+    
+
+</style>
+{% endblock %}
+
+{% block body %}
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>A propos du proprietaire du terrain Cerficicat foncé </h3>  
+    </div>
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 12.5%; margin : auto">
+ 
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Nom : <span style="font-weight: normal">{{proprietaireTerrainCf.getNom}}</span></h6>  
+        <h6  class="col">Prenom : <span style="font-weight: normal">{{proprietaireTerrainCf.getPrenom}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Date de naissance : <span style="font-weight: normal">{{proprietaireTerrainCf.getDateNaissance | date("m-d-Y")   }}</span></h6>  
+        <h6  class="col">Telephone : <span style="font-weight: normal">{{proprietaireTerrainCf.getTelephone}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Adresse : <span style="font-weight: normal">{{proprietaireTerrainCf.getAdresse}}</span></h6>  
+        <h6  class="col">Email : <span style="font-weight: normal">{{proprietaireTerrainCf.getEmail}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">CIN : <span style="font-weight: normal">{{proprietaireTerrainCf.getCin}}</span></h6>  
+        {# <h6  class="col">CIN proprietaire : <span style="font-weight: normal">{{proprietaireTerrainCf.getProprietaire.getCin}}</span></h6>   #}
+    </div><hr>
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h4>Ces terrains Certificats foncés </h4>  
+    </div>
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 12.5%; margin : auto">
+    <div class="content">
+        <table id ="table_id" class="table  table-striped table-bordered ">
+            <thead class=" table-primary text-center" style="font-weight:bold">
+                <td class="  text-center">n_Certificat</td>
+                <td class="  text-center">Nom terrain</td>
+                <td class="  text-center">Fokotany</td>
+                <td class="  text-center">Zone PUDi</td>
+                <td class="  text-center">Superficie</td>
+                {# <td>contenance</td> #}
+                {# <td class=" table-primary text-center">Proprietaire</td>
+                <td class=" table-primary text-center">CIN proprietaire</td> #}
+                <td class=" text-center">Action</td>
+            </thead>
+            {% for all_terrain_cf in all_terrain_cfs %}
+            
+                <tr>
+                    <td class="text-center"  style="font-weight:bold">{{ all_terrain_cf.getNCertificat}}</td>
+                    <td class="text-center ">{{ all_terrain_cf.getNomTerrainCf}}</td>
+                    <td class="text-center ">{{ all_terrain_cf.getFkt}}</td>
+                    <td class=" text-center">{{ all_terrain_cf.getZonePudi}}</td>
+                    <td class=" text-center">{{ all_terrain_cf.getSuperficie}}</td>
+                    {# <td class=" "  style="font-weight:bold">{{ all_terrain_cf.getContenances.}}</td> #}
+                    {# <td class="text-center ">{{ all_terrain_cf.getproprietaireTerrainCf.getNom}} {{ all_terrain_cf.getproprietaireTerrainCf.getPrenom}}</td>
+                    <td class="text-center ">{{ all_terrain_cf.getproprietaireTerrainCf.getCin}}</td> #}
+                    <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"><a href={{path('app_admin_show_terrain_cf'  , {id: all_terrain_cf.id})}} style="text-decoration : none" class="btn btn-outline-default btn-sm m-0"><i class="fa fa-info"> </i> </a> <a href={{path('app_admin_add_terrain_cf' , {id : all_terrain_cf.id})}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href={{path('app_admin_confirmation_delete_terrain_cf' , {id : all_terrain_cf.id})}}  class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td>
+                </tr>
+                 
+             
+            {% endfor %}
+        </table>
+    </div>
+    
+    
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 13%; margin : auto">
+    <hr class="mb-3" style="width : 7%; margin : auto">
+
+
+
+{% endblock %}
+{% block javascript %}
+     <script>
+        $(document).ready(function() {
+            $('#table_id').DataTable();
+        });
+    </script>
+{% endblock %}  

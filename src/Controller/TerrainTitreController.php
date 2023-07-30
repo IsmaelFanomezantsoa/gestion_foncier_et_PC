@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Contenance;
 use App\Entity\ProprietaireTerrainTitre;
 use App\Entity\TerrainTitre;
+use App\Form\ContenanceType;
 use App\Form\TerrainTitreType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,12 +29,15 @@ class TerrainTitreController extends AbstractController
             'all_terrain_titres'=> $all_terrain_titres
         ]);
     }
-    #[Route('admin/terrain/titre/show/{id}', name: 'app_admin_show_terrain_titre')]
-    public function AffichageTerrainTitre( TerrainTitre $terrainTitre , ManagerRegistry $doctrine): Response
+    #[Route('admin/terrain/titre/show/{id?0<\d+>}', name: 'app_admin_show_terrain_titre', requirements: ['id' => '\d+'])]
+    public function AffichageTerrainTitre( $id ,TerrainTitre $terrainTitre , ManagerRegistry $doctrine): Response
     {
+        $repository = $doctrine->getRepository(Contenance::class);
+        $contenance = $repository->findBy(['terrainTitre'=> $id]);
         
         return $this->render('terrain_titre/showTerrainTitre.html.twig', [
-            "terrainTitre"=> $terrainTitre
+            "terrainTitre"=> $terrainTitre, 
+            'contenances'=> $contenance
         ]);
     }
 
@@ -69,12 +74,13 @@ class TerrainTitreController extends AbstractController
         $this->addFlash("success", "Terrain supprimé avec succès");
         return $this->redirectToRoute("app_admin_terrain_titre");
     }
+/////////////////////////////////////////
 
 
 /////////////////////////////////////////
 
     
-    #[Route('admin/terrain/titre/edit{id?0}', name: 'app_admin_add_terrain_titre')]
+    #[Route('admin/terrain/titre/edit{id?0 }', name: 'app_admin_add_terrain_titre')]
     public function addTerrainTitre(TerrainTitre $terrainTitre=null , ManagerRegistry $doctrine ,Request $request , UploaderImage  $uploaderImage): Response
     {
         $new = false;
@@ -139,6 +145,116 @@ class TerrainTitreController extends AbstractController
 
         } 
         
+    }
+
+    #[Route('admin/terrain/titre/Contenance/edit/{id?0}', name: 'app_admin_terrain_titre_edit_contenance')]
+    public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
+    {
+        $new = false;
+
+         
+        if ($new){
+            $titre = "Ajouter une contenance";
+        }else{
+            $titre = "Modifier une contenance";
+        }
+        
+        if (!$contenance){
+            $new = true;
+            $contenance = new Contenance();
+        }
+
+
+        $form = $this->createForm(ContenanceType::class , $contenance);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $cinProprietaire = $request->request->get('cin_proprietaire'); 
+            $nTitre = $request->request->get('n_titre'); 
+            $terrain = $doctrine->getRepository(TerrainTitre::class)->findOneBy(['n_titre'=>$nTitre ]);
+            if($terrain){
+                $idTerrain = $terrain->getId();
+                $proprietaire = $terrain->getProprietaireTerrainTitre();
+                if($proprietaire->getCin() == $cinProprietaire){
+                    $manager = $doctrine->getManager();
+                    $contenance->setTerrainTitre($terrain);
+                    $contenance->setTerrainTitre($terrain);
+                    $manager->persist($contenance);
+                    $routeAfterAddContenance = $this->generateUrl("app_admin_show_terrain_titre", ['id' => $idTerrain]);
+                    // dd($routeAfterAddContenance);
+                    $manager->flush();
+                    if ($new){
+                        
+                        $message = "Contenance ajoutée avec success";
+                    }else{
+                        
+                        $message = "Mis à jour effectuée avec success";
+                    }
+                    
+                    
+                    $this->addFlash('success' , "".$message);
+                    // return $this->redirectToRoute($routeAfterAddContenance);
+                    return $this->redirect($routeAfterAddContenance);
+                }else{
+                    $this->addFlash('danger' , "Le terrain n'existe pas");
+                    return $this->redirectToRoute('app_admin_terrain_titre_edit_contenance');
+                }
+            }else{
+                $this->addFlash('danger' , "Le terrain n'existe pas");
+                return $this->redirectToRoute('app_admin_terrain_titre_edit_contenance');
+            }
+            
+        }
+        return $this->render('terrain_titre/addContenance.html.twig', [ 
+            'form'=>$form->createView(),
+            'titre'=>$titre
+        ]);
+    }
+
+    
+    //////////////////////
+    #[Route('admin/terrain/titre/confirmationDeleteContenanceTerrainTitre/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_titre')]
+    public function deleteContenanceTerrainTitreConfirmation(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
+    {
+        if (!$contenance) {
+            $this->addFlash("danger", "La contenace que vous voulez supprimer n'existe pas");
+            return $this->redirectToRoute("app_admin_terrain_titre");
+        }
+
+        // Si l'utilisateur confirme la suppression, le lien de confirmation doit pointer vers la page de suppression
+        $deleteConfirmationLink = $this->generateUrl('app_admin_delete_contenance_terrain_titre', ['id' => $id]);
+        $idTerrain = $contenance->getTerrainTitre()->getId();
+        $urlCancel = $this->generateUrl('app_admin_show_terrain_titre', ['id' => $idTerrain]);
+
+        return $this->render('terrain_titre/deleteConfirmationPageContenance.html.twig', [
+            'contenance' => $contenance,
+            'deleteConfirmationLink' => $deleteConfirmationLink,
+            "urlCancel" => $urlCancel
+        ]);
+    }
+
+    #[Route('admin/terrain/titre/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_titre')]
+    public function deleteContenanceTerrainTitre(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
+    {
+       
+        if (!$contenance) {
+            $this->addFlash("danger", "La contenance que vous voulez supprimer n'existe pas");
+            return $this->redirectToRoute("app_admin_terrain_titre");
+        }
+
+        $idTerrain = $contenance->getTerrainTitre()->getId();
+        $urlAfterDelete = $this->generateUrl('app_admin_show_terrain_titre', ['id' => $idTerrain]);
+
+
+
+        // Supprimez effectivement le terrain
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($contenance);
+        $entityManager->flush();
+
+        $this->addFlash("success", "Contenance supprimée avec succès");
+        return $this->redirect($urlAfterDelete);
     }
     
 }
