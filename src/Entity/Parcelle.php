@@ -21,7 +21,7 @@ class Parcelle
     #[ORM\Column(length: 255)]
     private ?string $superficie_parcelle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255 , nullable: true)]
     private ?string $imageParcelle = null;
 
     #[ORM\ManyToOne(inversedBy: 'parcelles')]

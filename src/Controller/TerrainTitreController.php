@@ -140,7 +140,9 @@ class TerrainTitreController extends AbstractController
         }else{
             return $this->render('terrain_titre/addTerrainTitre.html.twig', [
                 'form' => $form->createView(), 
-                'titre'=> $titre
+                'titre'=> $titre,
+                'terrainTitre'=> $terrainTitre,
+                'new'=>$new
             ]);
 
         } 
@@ -150,23 +152,34 @@ class TerrainTitreController extends AbstractController
     #[Route('admin/terrain/titre/Contenance/edit/{id?0}', name: 'app_admin_terrain_titre_edit_contenance')]
     public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
     {
+        $idTerrainCible = $request->query->get('idTerrain');
+
+        if( $idTerrainCible){
+            $terrainCibleRepository = $doctrine->getRepository(TerrainTitre::class);
+            $terrainCible = $terrainCibleRepository->findOneBy(['id'=>$idTerrainCible]);
+        }else{
+            return $this->redirectToRoute('app_admin_terrain_titre_edit_contenance');
+        }
+         
         $new = false;
 
+        if (!$contenance){
+            $new = true;
+            $contenance = new Contenance();
+        }
          
         if ($new){
+            
             $titre = "Ajouter une contenance";
         }else{
             $titre = "Modifier une contenance";
         }
         
-        if (!$contenance){
-            $new = true;
-            $contenance = new Contenance();
-        }
 
 
         $form = $this->createForm(ContenanceType::class , $contenance);
         $form->handleRequest($request);
+        
 
         if($form->isSubmitted() && $form->isValid()){
 
@@ -178,7 +191,6 @@ class TerrainTitreController extends AbstractController
                 $proprietaire = $terrain->getProprietaireTerrainTitre();
                 if($proprietaire->getCin() == $cinProprietaire){
                     $manager = $doctrine->getManager();
-                    $contenance->setTerrainTitre($terrain);
                     $contenance->setTerrainTitre($terrain);
                     $manager->persist($contenance);
                     $routeAfterAddContenance = $this->generateUrl("app_admin_show_terrain_titre", ['id' => $idTerrain]);
@@ -208,7 +220,8 @@ class TerrainTitreController extends AbstractController
         }
         return $this->render('terrain_titre/addContenance.html.twig', [ 
             'form'=>$form->createView(),
-            'titre'=>$titre
+            'titre'=>$titre ,
+            'terrainCible'=>$terrainCible
         ]);
     }
 

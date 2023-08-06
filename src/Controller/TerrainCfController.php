@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contenance;
 use App\Entity\ProprietaireTerrainCf;
 use App\Entity\TerrainCf;
+use App\Form\ContenanceType;
 use App\Form\TerrainCfType;
 use App\Services\UploaderImage;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,6 +32,8 @@ class TerrainCfController extends AbstractController
     #[Route('admin/terrain/cf/edit{id?0}', name: 'app_admin_add_terrain_cf')]
     public function addTerrainTitre(TerrainCf $terrainCf=null , ManagerRegistry $doctrine ,Request $request , UploaderImage   $uploaderImage): Response
     {
+
+        
         $new = false;
         if(!$terrainCf){
             $new = true;
@@ -88,7 +91,9 @@ class TerrainCfController extends AbstractController
         }else{
             return $this->render('terrain_cf/addTerrainCf.html.twig', [
                 'form' => $form->createView(), 
-                'titre'=> $titre
+                'titre'=> $titre,
+                'terrainCf'=> $terrainCf,
+                'new'=>$new
             ]);
 
         } 
@@ -197,4 +202,81 @@ class TerrainCfController extends AbstractController
 
 
     ////////////
+
+    #[Route('admin/terrain/cf/Contenance/edit/{id?0}', name: 'app_admin_terrain_cf_edit_contenance')]
+    public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
+    {
+
+        $idTerrainCible = $request->query->get('idTerrain');
+
+        if( $idTerrainCible){
+            $terrainCibleRepository = $doctrine->getRepository(TerrainCf::class);
+            $terrainCible = $terrainCibleRepository->findOneBy(['id'=>$idTerrainCible]);
+        }else{
+            return $this->redirectToRoute('app_admin_terrain_titre_edit_contenance');
+        }
+
+        $new = false;
+
+        if (!$contenance){
+            $new = true;
+            $contenance = new Contenance();
+        }
+         
+        if ($new){
+            $titre = "Ajouter une contenance";
+        }else{
+            $titre = "Modifier une contenance";
+        }
+        
+
+
+        $form = $this->createForm(ContenanceType::class , $contenance);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $cinProprietaire = $request->request->get('cin_proprietaire'); 
+            $nCf = $request->request->get('n_titre'); 
+            $terrain = $doctrine->getRepository(TerrainCf::class)->findOneBy(['n_certificat'=>$nCf ]);
+            if($terrain){
+                $idTerrain = $terrain->getId();
+                $proprietaire = $terrain->getProprietaire();
+                if($proprietaire->getCin() == $cinProprietaire){
+                    $manager = $doctrine->getManager();
+                    $contenance->setTerrainCf($terrain);
+                    $manager->persist($contenance);
+                    $routeAfterAddContenance = $this->generateUrl("app_admin_show_terrain_cf", ['id' => $idTerrain]);
+                    // dd($routeAfterAddContenance);
+                    $manager->flush();
+                    if ($new){
+                        
+                        $message = "Contenance ajoutée avec success";
+                    }else{
+                        
+                        $message = "Mis à jour effectuée avec success";
+                    }
+                    
+                    
+                    $this->addFlash('success' , "".$message);
+                    // return $this->redirectToRoute($routeAfterAddContenance);
+                    return $this->redirect($routeAfterAddContenance);
+                }else{
+                    $this->addFlash('danger' , "Le terrain n'existe pas");
+                    return $this->redirectToRoute('app_admin_terrain_cf_edit_contenance');
+                }
+            }else{
+                $this->addFlash('danger' , "Le terrain n'existe pas");
+                return $this->redirectToRoute('app_admin_terrain_cf_edit_contenance');
+            }
+            
+        }
+        return $this->render('terrain_cf/addContenance.html.twig', [ 
+            'form'=>$form->createView(),
+            'titre'=>$titre,
+            'terrainCible'=>$terrainCible
+        ]);
+    }
+
+
 }

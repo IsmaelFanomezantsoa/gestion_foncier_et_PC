@@ -19,20 +19,35 @@
              
             <div class="row">
                 <div class="col"> 
-                    <label>N_titre du terrain :</label>
+                    <label>N_titre du cadastre :</label>
                     <input class="form form-control mt-2" 
+                    
                         {% if terrainCible %}
-                            value = {{ terrainCible.getNTitre }}
+                                value = {{ terrainCible.getTerrainCadastre.getNTitre }}
                         {% endif %}
+                    
+                    
                     name="n titre">
                 </div>
-                <div class="col">
-                    {# {{form_row(form.cin_proprietaire)}} #}
-                    <label>CIN du proprietaire :</label>
+                <div class="col"> 
+                    <label>N_Parcelle :</label>
                     <input class="form form-control mt-2" 
                         {% if terrainCible %}
-                            value = {{ terrainCible.getProprietaireTerrainTitre.getCin }}
+                                value = {{ terrainCible.getNParcelle }}
                         {% endif %}
+                    
+                    name="n parcelle">
+                </div>
+                 
+            </div>
+            <div class="row">
+                <div class="col-6"> 
+                    <label>CIN du proprietaire :</label>
+                    <input class="form form-control mt-2"
+                        {% if terrainCible %}
+                                value = {{ terrainCible.getProprietaireParcelle.getCin}}
+                        {% endif %}
+                    
                     name="cin proprietaire">
                 </div>
             </div>

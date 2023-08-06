@@ -40,6 +40,8 @@ class TerrainTitreType extends AbstractType
                             'image/jpg',
                             'image/jpeg',
                             'image/jpeg',
+                            'image/png',
+                            'image/PNG',
                         ],
                         'mimeTypesMessage' => 'Entrer un bon format d\'image',
                     ])

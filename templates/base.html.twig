@@ -48,12 +48,40 @@
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
         <div class="position-sticky pt-3 sidebar-sticky">
           <ul class="nav flex-column">
-         
             
             <li class="nav-item">
-              <a class="nav-link text-center text-primary" aria-current="page" href="#" style="font-weight: bold ; font-style : italic">
+              <a class="nav-link text-center text-secondary " aria-current="page" href="#" style="font-weight: bold; font-style : italic">
+              
                 <span data-feather="home"  class="align-text-bottom" ></span>
-                {# <hr class="mt-0 "> #}
+                
+                <span style="font-size:15px" >Gestion des Proprietaires</span>
+                <hr class="mb-0">
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link " href={{path('app_admin_proprietaire_terrain_titre')}}>
+                <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                <span style="font-size : 17px ; font-style:italic ;">P</span>. Terrains titrés
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href={{path('app_admin_proprietaire_terrain_cf')}}>
+                <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                <span style="font-size : 17px ; font-style:italic ;">P</span>. Terrains à certificat foncier
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href={{path('app_admin_proprietaire_parcelle')}}>
+                <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                <span style="font-size : 17px ; font-style:italic ;">P</span>. Terrains cadastres
+              </a>
+            </li>
+
+                        <li class="nav-item">
+              <a class="nav-link text-center text-secondary " aria-current="page" href="#" style="font-weight: bold ; font-style : italic">
+                <span data-feather="home"  class="align-text-bottom" ></span>
+                <hr class="mt-0 ">
                 <span style="font-size:15px" >Gestion des Terrains </span>
                 <hr class="mb-0">
               </a>
@@ -72,46 +100,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href={{path('app_admin_terrain_cadastre')}}>
                 <span data-feather="file" class="align-text-bottom"></span>
                 Terrains cadastres
               </a>
             </li>
-            
-            <li class="nav-item">
-              <a class="nav-link text-center text-dark" aria-current="page" href="#" style="font-weight: bold; font-style : italic">
-              
-                <span data-feather="home"  class="align-text-bottom" ></span>
-                <hr class="mt-0 ">
-                <span style="font-size:15px" >Gestion des Proprietaires</span>
-                <hr class="mb-0">
-              </a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link " href={{path('app_admin_proprietaire_terrain_titre')}}>
-                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                Terrains titrés
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href={{path('app_admin_proprietaire_terrain_cf')}}>
-                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                Terrains à certificat foncier
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link " href="#">
-                <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                Terrains cadastres
-              </a>
-            </li>
+
+
             <li class="nav-item">
               <a class="nav-link text-center" aria-current="page" href="#" style="font-weight: bold; font-style : italic">
               
                 <span data-feather="home"  class="align-text-bottom" ></span>
                 <hr class="mt-0 ">
-                <span style="font-size:15px" >Gestion des archives de PC</span>
+                <span style="font-size:15px" class="text-secondary" >Gestion des archives de PC</span>
                 <hr class="mb-0">
               </a>
             </li>
@@ -120,7 +121,6 @@
              
                 <span data-feather="users" class="align-text-bottom"></span>
                 <span style="font-size:15px" >Archives des permis de construire</span>
-                <hr class="mb-0">
                 <hr class="mb-0">
                 <hr class="mb-0">
               </a>

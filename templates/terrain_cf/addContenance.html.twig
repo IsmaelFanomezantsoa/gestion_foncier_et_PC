@@ -21,17 +21,18 @@
                 <div class="col"> 
                     <label>N_titre du terrain :</label>
                     <input class="form form-control mt-2" 
-                        {% if terrainCible %}
-                            value = {{ terrainCible.getNTitre }}
-                        {% endif %}
+                    {% if terrainCible %}
+                            value = {{ terrainCible.getNCertificat }}
+                    {% endif %}
+                    
                     name="n titre">
                 </div>
                 <div class="col">
                     {# {{form_row(form.cin_proprietaire)}} #}
                     <label>CIN du proprietaire :</label>
-                    <input class="form form-control mt-2" 
+                    <input class="form form-control mt-2"
                         {% if terrainCible %}
-                            value = {{ terrainCible.getProprietaireTerrainTitre.getCin }}
+                            value = {{ terrainCible.getProprietaire.getCin }}
                         {% endif %}
                     name="cin proprietaire">
                 </div>

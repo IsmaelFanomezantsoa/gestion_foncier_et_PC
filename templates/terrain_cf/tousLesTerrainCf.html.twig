@@ -54,12 +54,10 @@
                     <td class="text-center"  style="font-weight:bold">{{ all_terrain_cf.getNCertificat}}</td>
                     <td class="text-center ">{{ all_terrain_cf.getNomTerrainCf}}</td>
                     <td class="text-center ">{{ all_terrain_cf.getFkt}}</td>
-                    <td class=" text-center">{{ all_terrain_cf.getZonePudi}}</td>
+                    <td class=" text-center {% if all_terrain_cf.getZonePudi == "constructible" or all_terrain_cf.getZonePudi == "Constructible"  %}text-success {% elseif all_terrain_cf.getZonePudi == "Inconstructible" or all_terrain_cf.getZonePudi == "inconstructible"%} text-danger {% endif %}" style= "font-weight : bold ">{{ all_terrain_cf.getZonePudi}}</td>
                     <td class=" text-center">{{ all_terrain_cf.getSuperficie}}</td>
-                    {# <td class=" "  style="font-weight:bold">{{ all_terrain_cf.getContenances.}}</td> #}
                     <td class="text-center ">{{ all_terrain_cf.getProprietaire.getNom}} {{ all_terrain_cf.getProprietaire.getPrenom}}</td>
                     <td class="text-center ">{{ all_terrain_cf.getProprietaire.getCin}}</td>
-                    {# <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap"><a href={{path('app_admin_show_terrain_cf'  , {id: all_terrain_cf.id})}} style="text-decoration : none" class="btn btn-default btn-sm m-0"><i class="fa fa-info"> </i> </a> <a href={{path('app_admin_add_terrain_titre' , {id : all_terrain_cf.id})}} class="btn btn-success btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href={{path('app_admin_confirmation_delete_terrain_titre' , {id : all_terrain_cf.id})}}  class="btn btn-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td> #}
                     <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap"><a href={{path('app_admin_show_terrain_cf'  , {id: all_terrain_cf.id})}}    style="text-decoration : none" class="btn btn-default btn-sm m-0"><i class="fa fa-info"> </i> </a> <a href={{path('app_admin_add_terrain_cf' , {id : all_terrain_cf.id})}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a <a href={{path('app_admin_confirmation_delete_terrain_cf' , {id : all_terrain_cf.id})}}  class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td>
                 </tr>
                  

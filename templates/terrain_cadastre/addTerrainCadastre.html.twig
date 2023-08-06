@@ -26,18 +26,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    {{form_row(form.nomTerrainTitre)}}
+                    {{form_row(form.nomCadastre)}}
                 </div>
-                <div class="col">
-                    {# {{form_row(form.cin_proprietaire)}} #}
-                    <label>CIN du proprietaire :</label>
-                    <input class="form form-control mt-2" name="cin proprietaire" 
-
-                        {% if new == false %}
-                            value= {{terrainTitre.getProprietaireTerrainTitre.getCin}}
-                        {% endif %}
-                    
-                    >
+                <div class="col"> 
+                    {{form_row(form.nbParcelle)}}
                 </div>
             </div>
             <div class="row">

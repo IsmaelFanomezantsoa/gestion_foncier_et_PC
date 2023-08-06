@@ -54,7 +54,7 @@
                     <td class="text-center"  style="font-weight:bold">{{ all_terrain_titre.getNTitre}}</td>
                     <td class="text-center ">{{ all_terrain_titre.getNomTerrainTitre}}</td>
                     <td class="text-center ">{{ all_terrain_titre.getFkt}}</td>
-                    <td class=" text-center">{{ all_terrain_titre.getZonePudi}}</td>
+                    <td class=" text-center {% if all_terrain_titre.getZonePudi == "constructible" or all_terrain_titre.getZonePudi == "Constructible"  %}text-success {% elseif all_terrain_titre.getZonePudi == "Inconstructible" or all_terrain_titre.getZonePudi == "inconstructible"%} text-danger {% endif %}" style= "font-weight : bold ">{{ all_terrain_titre.getZonePudi}}</td>
                     <td class=" text-center">{{ all_terrain_titre.getSuperficie}}</td>
                     {# <td class=" "  style="font-weight:bold">{{ all_terrain_titre.getContenances.}}</td> #}
                     <td class="text-center ">{{ all_terrain_titre.getProprietaireTerrainTitre.getNom}} {{ all_terrain_titre.getProprietaireTerrainTitre.getPrenom}}</td>

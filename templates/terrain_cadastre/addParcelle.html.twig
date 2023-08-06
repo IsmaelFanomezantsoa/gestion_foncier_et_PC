@@ -10,29 +10,32 @@
          {{form_start(form)}}
             <div class="row">
                 <div class="col">
-                    {{form_row(form.usageBatimentContenance)}}
+                    {{form_row(form.n_parcelle)}}
                 </div>
                 <div class="col">
-                    {{form_row(form.surfaceOccupeContenance)}}
+                    {{form_row(form.superficie_parcelle)}}
                 </div>
             </div>
              
             <div class="row">
                 <div class="col"> 
-                    <label>N_titre du terrain :</label>
+                    <label>N_titre du du cadastre :</label>
                     <input class="form form-control mt-2" 
                         {% if terrainCible %}
                             value = {{ terrainCible.getNTitre }}
                         {% endif %}
+                    
                     name="n titre">
                 </div>
                 <div class="col">
                     {# {{form_row(form.cin_proprietaire)}} #}
-                    <label>CIN du proprietaire :</label>
+                    <label>CIN du proprietaire de la parcelle :</label>
                     <input class="form form-control mt-2" 
-                        {% if terrainCible %}
-                            value = {{ terrainCible.getProprietaireTerrainTitre.getCin }}
+                    
+                        {% if new == false %}
+                            value = {{ parcelleCible.getProprietaireParcelle.getCin }}
                         {% endif %}
+                    
                     name="cin proprietaire">
                 </div>
             </div>

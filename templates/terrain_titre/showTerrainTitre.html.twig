@@ -35,7 +35,7 @@
      <hr class="mb-3" style="width : 50% ; margin : auto">
     <hr class="mb-3" style="width : 25%; margin : auto">
     <div class="container " style=" display  : flex ; aling-items: center; justify-content : flex-start">
-        <a class="btn btn-primary text-center mb-3" style="width : 30% " href={{path('app_admin_terrain_titre_edit_contenance')}}><i class="fa fa-plus"> </i> Ajouter un nouveau contenance</a>
+        <a class="btn btn-primary text-center mb-3" style="width : 30% " href={{path('app_admin_terrain_titre_edit_contenance', {'idTerrain':terrainTitre.getId})}}><i class="fa fa-plus"> </i> Ajouter un nouveau contenance</a>
         {# <a class="btn btn-primary text-center mb-3" style="width : 30% " href={{path('app_admin_terrain_titre_edit_contenance')}}><i class="fa fa-plus"> </i> Ajouter un nouveau terrain titré</a> #}
 
     </div>
@@ -53,7 +53,7 @@
                 <tr>
                     <td class="text-center"  style="font-weight:bold">{{ contenance.getUsageBatimentContenance}}</td>
                     <td class="text-center ">{{ contenance.getSurfaceOccupeContenance}}</td>
-                    <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"> <a href={{path('app_admin_terrain_titre_edit_contenance'  , {id: contenance.id})}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href= {{path('app_admin_confirmation_delete_contenance_terrain_titre' , {id : contenance.id})}} class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td>
+                    <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"> <a href={{path('app_admin_terrain_titre_edit_contenance'  , {id: contenance.id ,'idTerrain':terrainTitre.getId })}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href= {{path('app_admin_confirmation_delete_contenance_terrain_titre' , {id : contenance.id})}} class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td>
                     {# <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap"><a href={{path('app_admin_terrain_titre_edit_contenance'  , {id: all_terrain_titre.id})}} style="text-decoration : none" class="btn btn-outline-default btn-sm m-0"><i class="fa fa-info"> </i> </a> <a href={{path('app_admin_confirmation_delete_contenance_terrain_titre' , {id : all_terrain_titre.id})}} class="btn btn-outline-primary btn-sm m-0" style="text-decoration : none"><i class="fa fa-edit"> </i> </a> <a href={{path('app_admin_confirmation_delete_terrain_titre' , {id : all_terrain_titre.id})}}  class="btn btn-outline-danger btn-sm m-0"style="text-decoration : none"> <i class="fa fa-trash"> </i></a></td> #}
                 </tr>
                  

@@ -31,7 +31,13 @@
                 <div class="col">
                     {# {{form_row(form.cin_proprietaire)}} #}
                     <label>CIN du proprietaire :</label>
-                    <input class="form form-control mt-2" name="cin proprietaire">
+                    <input class="form form-control mt-2" name="cin proprietaire" 
+
+                        {% if new == false %}
+                            value= {{terrainCf.getProprietaire.getCin}}
+                        {% endif %}
+                    
+                    >
                 </div>
             </div>
             <div class="row">

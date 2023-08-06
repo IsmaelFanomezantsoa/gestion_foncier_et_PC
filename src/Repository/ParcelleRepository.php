@@ -39,20 +39,20 @@ class ParcelleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Parcelle[] Returns an array of Parcelle objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Parcelle[] Returns an array of Parcelle objects
+    */
+   public function findParcelleCadastre($idCadastre , $nParcelle): array
+   {
+       return $this->createQueryBuilder('p')
+           ->andWhere('p.TerrainCadastre = :idCadastre')
+           ->andWhere('p.n_parcelle = :nParcelle')
+           ->setParameter('idCadastre', $idCadastre)
+           ->setParameter('nParcelle', $nParcelle)  
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Parcelle
 //    {

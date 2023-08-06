@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\TerrainCf;
+use App\Entity\TerrainCadastre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -10,18 +10,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
-class TerrainCfType extends AbstractType
+class TerrainCadastreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('n_certificat')
+            ->add('n_titre')
             ->add('fkt')
             ->add('zonePudi')
             ->add('superficie')
-            ->add('nomTerrainCf')
-            ->add('image', FileType::class, [
-                'label' => 'Image du plan du terrain',
+            ->add('nomCadastre')->add('image', FileType::class, [
+                'label' => 'Image du plan du cadastre',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
@@ -47,8 +46,7 @@ class TerrainCfType extends AbstractType
                     ])
                 ],
             ])
-            // ->add('proprietaire')
-            
+            ->add('nbParcelle')
             ->add('Valider', SubmitType::class)
         ;
     }
@@ -56,7 +54,7 @@ class TerrainCfType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => TerrainCf::class,
+            'data_class' => TerrainCadastre::class,
         ]);
     }
 }
