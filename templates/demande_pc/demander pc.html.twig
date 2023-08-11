@@ -19,16 +19,33 @@
     overflow: hidden; /* Pour cacher le contenu débordant */
     text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
     }
-    
+    a{
+        text-decoration: none;
+    }
 
 </style>
 {% endblock %}
 {% block body %}
 
-        <div class="title mt-2 " style =" display  : flex ; aling-items: center; justify-content : center">
-            <h3>Demander PC</h3>
+        <div class="title mt-5 " style =" display  : flex ; aling-items: center; justify-content : center ; align-items-center">
+            <h3>Faites votre demande de ptruire</h3>
         </div>
-        {{ form(form) }}
+        <div class="row d-flex justify-content-center" >
+            
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                {{ form_start(form) }}
+                    <label class="mb-3">Demande de permis de construire (<a href="{{ asset('uploads/exemplaire/dempc.pdf')}}" ><i class="fa fa-download"></i>  Télécharger une exemplaire  </a>)</label>
+                    {{ form_widget(form.nomDemandePc) }}
+                    <label class="mb-3 mt-3">Demande d'alignement (<a href="{{ asset('uploads/exemplaire/alignement.pdf')}}"><i class="fa fa-download"></i>  Télécharger une exemplaire  </a>)</label>
+                    {{ form_widget(form.nomDemandeAlignement) }}
+                    <label class="mb-3 mt-3">Autre dossier (<a href="{{ asset('uploads/exemplaire/autre.pdf')}}"><i class="fa fa-download"></i>  Télécharger une exemplaire  </a>)</label> 
+                    {{ form_widget(form.nomAutreDossier) }}
+                    <br>
+                {{ form_end(form)}}
+            </div>
+                
+        </div>
+        
            
     
     <hr class="mb-3" style="width : 50% ; margin : auto">

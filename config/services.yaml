@@ -8,6 +8,9 @@ parameters:
     image_du_plan_terrain_cf: '%kernel.project_dir%/public/uploads/Image_du_plan_terrain_cf'
     image_du_plan_cadastre: '%kernel.project_dir%/public/uploads/Image_du_plan_cadastre'
     image_du_plan_parcelle: '%kernel.project_dir%/public/uploads/Image_du_plan_parcelle'
+    demande_du_permis_de_construire: '%kernel.project_dir%/public/uploads/Demande_du_permis_de_construire'
+    autre_dossier: '%kernel.project_dir%/public/uploads/Autre_dossier'
+    demande_d_alignement: '%kernel.project_dir%/public/uploads/Demande_d_alignement'
 services:
     # default configuration for services in *this* file
     _defaults:

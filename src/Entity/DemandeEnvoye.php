@@ -47,7 +47,7 @@ class DemandeEnvoye
     }
 
     public function getNomDemandeAlignement(): ?string
-    {
+    { 
         return $this->nomDemandeAlignement;
     }
 

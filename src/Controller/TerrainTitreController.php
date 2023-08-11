@@ -97,7 +97,7 @@ class TerrainTitreController extends AbstractController
         $new = false;
         if(!$terrainTitre){
             $new = true;
-            $terrainTitre = new TerrainTitre();
+            $terrainTitre = new TerrainTitre(); 
         }
         if ($new){
             $titre = "Ajouter un terrain titré";
