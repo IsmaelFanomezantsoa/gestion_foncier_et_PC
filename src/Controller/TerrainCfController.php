@@ -9,6 +9,7 @@ use App\Form\ContenanceType;
 use App\Form\TerrainCfType;
 use App\Services\UploaderImage;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TerrainCfController extends AbstractController
 {
-    #[Route('admin/terrain/cf', name: 'app_admin_terrain_cf')]
+    #[Route('admin/terrain/cf', name: 'app_admin_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesTerraincf(ManagerRegistry  $doctrine): Response
     {
         $repository = $doctrine->getRepository(TerrainCf::class);
@@ -29,7 +32,9 @@ class TerrainCfController extends AbstractController
 
 
 
-    #[Route('admin/terrain/cf/edit{id?0}', name: 'app_admin_add_terrain_cf')]
+    #[Route('admin/terrain/cf/edit{id?0}', name: 'app_admin_add_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addTerrainTitre(TerrainCf $terrainCf=null , ManagerRegistry $doctrine ,Request $request , UploaderImage   $uploaderImage): Response
     {
 
@@ -100,7 +105,9 @@ class TerrainCfController extends AbstractController
         
     }
     
-    #[Route('admin/terrain/cf/show/{id?0<\d+>}', name: 'app_admin_show_terrain_cf', requirements: ['id' => '\d+'])]
+    #[Route('admin/terrain/cf/show/{id?0<\d+>}', name: 'app_admin_show_terrain_cf', requirements: ['id' => '\d+']), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function AffichageTerrainCf( $id ,TerrainCf $terrainCf , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Contenance::class);
@@ -117,7 +124,9 @@ class TerrainCfController extends AbstractController
     /////////////////
 
 
-    #[Route('admin/terrain/cf/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_cf')]
+    #[Route('admin/terrain/cf/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainTitreConfirmation(TerrainCf $terrainCf = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainCf) {
@@ -134,7 +143,9 @@ class TerrainCfController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cf/delete/{id}', name: 'app_admin_delete_terrain_cf')]
+    #[Route('admin/terrain/cf/delete/{id}', name: 'app_admin_delete_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainTitre(TerrainCf $terrainCf = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainCf) {
@@ -155,7 +166,9 @@ class TerrainCfController extends AbstractController
 
     
     //////////////////////
-    #[Route('admin/terrain/cf/confirmationDeleteContenanceTerrainCf/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_cf')]
+    #[Route('admin/terrain/cf/confirmationDeleteContenanceTerrainCf/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceTerrainCfConfirmation(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$contenance) {
@@ -175,7 +188,9 @@ class TerrainCfController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cf/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_cf')]
+    #[Route('admin/terrain/cf/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceTerrainCf(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
        
@@ -203,7 +218,9 @@ class TerrainCfController extends AbstractController
 
     ////////////
 
-    #[Route('admin/terrain/cf/Contenance/edit/{id?0}', name: 'app_admin_terrain_cf_edit_contenance')]
+    #[Route('admin/terrain/cf/Contenance/edit/{id?0}', name: 'app_admin_terrain_cf_edit_contenance'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
     {
 

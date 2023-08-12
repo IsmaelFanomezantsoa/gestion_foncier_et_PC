@@ -1,0 +1,85 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Tous mes terrains à certificat foncier{% endblock %}
+{% block css %}
+<style> 
+    {# th:nth-child(6),
+    td:nth-child(6) {
+    width: 120px; /* Par exemple, une largeur fixe de 200 pixels */
+    max-width: 120px; /* Pour s'assurer que la largeur ne dépasse pas 200 pixels */
+    white-space: nowrap; /* Pour empêcher le retour à la ligne du contenu */
+    overflow: hidden; /* Pour cacher le contenu débordant */
+    text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
+    } #}
+    th,
+    td {
+    width: 80px; /* Par exemple, une largeur fixe de 200 pixels */
+    max-width: 80px; /* Pour s'assurer que la largeur ne dépasse pas 200 pixels */
+    white-space: nowrap; /* Pour empêcher le retour à la ligne du contenu */
+    overflow: hidden; /* Pour cacher le contenu débordant */
+    text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
+    }
+    
+
+</style>
+{% endblock %}
+{% block body %}
+
+    
+        <div class="title mt-2 " style =" display  : flex ; aling-items: center; justify-content : center">
+            <h3>Tous mes terrains à certificat foncier</h3>
+        </div>
+        
+            {# <hr class="mb-3 " style="width : 75% ; margin : auto"> #}
+            <hr class="mb-3" style="width : 50% ; margin : auto">
+            <hr class="mb-3" style="width : 25%; margin : auto">
+        
+        <div class="content">
+            <table id ="table_id" class="table  table-striped table-bordered ">
+                <thead class=" table-primary text-center" style="font-weight:bold">
+                    <td class=" table-primary text-center">n_terrain</td>
+                    <td class=" table-primary text-center">Nom terrain</td>
+                    <td class=" table-primary text-center">Fokotany</td>
+                    <td class=" table-primary text-center">Zone PUDi</td>
+                    <td class=" table-primary text-center">Superficie</td>
+                    {# <td>contenance</td> #}
+                    {# <td class=" table-primary text-center">Proprietaire</td>
+                    <td class=" table-primary text-center">CIN proprietaire</td> #}
+                    <td class=" table-primary text-center">Action</td>
+                </thead>
+                {% if mesTerrainsCfs %}
+                {% for mesTerrainsCf in mesTerrainsCfs %}
+                
+                    <tr>
+                        <td class="text-center"  style="font-weight:bold">{{ mesTerrainsCf.getNCertificat}}</td>
+                        <td class="text-center ">{{ mesTerrainsCf.getNomTerrainCf}}</td>
+                        <td class="text-center ">{{ mesTerrainsCf.getFkt}}</td>
+                        <td class=" text-center {% if mesTerrainsCf.getZonePudi == "constructible" or mesTerrainsCf.getZonePudi == "Constructible"  %}text-success {% elseif mesTerrainsCf.getZonePudi == "Inconstructible" or mesTerrainsCf.getZonePudi == "inconstructible"%} text-danger {% endif %}" style= "font-weight : bold ">{{ mesTerrainsCf.getZonePudi}}</td>
+                        <td class=" text-center">{{ mesTerrainsCf.getSuperficie}}</td>
+                        {# <td class=" "  style="font-weight:bold">{{ mesTerrainsTitre.getContenances.}}</td> #}
+                        {# <td class="text-center ">{{ mesTerrainsCf.getProprietaire.getNom}} {{ mesTerrainsCf.getProprietaire.getPrenom}}</td>
+                        <td class="text-center ">{{ mesTerrainsCf.getProprietaire.getCin}}</td> #}
+                        <td class="display : flex  ; justify-content : space-between ; flex-wrap :no-wrap text-center"><a class=" btn btn-outline-primary" href={{path('app_user_show_terrain_cf'  , {id: mesTerrainsCf.id})}} style="text-decoration : none" class="btn btn-outline-default btn-sm m-0"><i class="fa fa-info"> </i> </a></td>
+                    </tr>
+                    
+                
+                {% endfor %}
+                {% endif %}
+                
+            </table>
+        </div>
+    
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 13%; margin : auto">
+    <hr class="mb-3" style="width : 7%; margin : auto">
+
+
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(document).ready(function() {
+            $('#table_id').DataTable();
+        });
+    </script>
+{% endblock %}  

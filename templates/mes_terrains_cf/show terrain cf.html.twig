@@ -1,0 +1,82 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}A propos du terrain{% endblock %}
+
+{% block body %}
+    <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>A propos de votre terrain à certificat foncier N° {{terrainCf.getNCertificat}}</h3>  
+    </div>
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+ 
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">N_certificat : <span style="font-weight: normal">{{terrainCf.getNCertificat}}</span></h6>  
+        <h6  class="col">Nom terrain : <span style="font-weight: normal">{{terrainCf.getNomterrainCf}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Fokotany : <span style="font-weight: normal">{{terrainCf.getFkt}}</span></h6>  
+        <h6  class="col">Superficie : <span style="font-weight: normal">{{terrainCf.getSuperficie}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Zone PUDi : <span style="font-weight: normal">{{terrainCf.getZonePudi}}</span></h6>  
+        {# <h6  class="col">Contenance : <span style="font-weight: normal">{{terrainCf.getNTitre}}</span></h6>   #}
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">Propriétaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getNom}} {{terrainCf.getProprietaire.getPrenom}}</span></h6>  
+        <h6  class="col">CIN proprietaire : <span style="font-weight: normal">{{terrainCf.getProprietaire.getCin}}</span></h6>  
+    </div><hr>
+    <div  class=" row mb-2 mt-3">
+        <h6 class="col">adresse : <span style="font-weight: normal">{{terrainCf.getProprietaire.getAdresse}}</span></h6>  
+        <h6  class="col">Télephone : <span style="font-weight: normal">{{terrainCf.getProprietaire.getTelephone}}</span></h6>  
+    </div><hr>
+     <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>Contenances </h3>  
+    </div>
+     <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    
+{# /////////// #}
+    <div class="content">
+        <table id ="table_id" class="table  table-striped table-bordered ">
+            <thead class=" table-primary text-center" style="font-weight:bold">
+                <td class=" table-primary text-center">Usage Batiment</td>
+                <td class=" table-primary text-center">Surface Occupé</td>
+            </thead>
+            {% for contenance in contenances %}
+            
+                <tr>
+                    <td class="text-center"  style="font-weight:bold">{{ contenance.getUsageBatimentContenance}}</td>
+                    <td class="text-center ">{{ contenance.getSurfaceOccupeContenance}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+
+{# ///////////// #}
+
+
+<hr>
+     <div style="display:flex; justify-content : center" class="mb-2 mt-3">
+        <h3>Image du plan du terrain </h3>  
+    </div>
+     <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+
+
+    
+    <div  class=" row mb-2 mt-3">
+        <img  class="img-fluid img-thumbnail" style = "width : 100% ; height : auto ; object-fit : cover; " src={{ asset('uploads/Image_du_plan_terrain_cf/' ~ terrainCf.getImage) }} alt"image du terrain"/>
+    </div>
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 13%; margin : auto">
+    <hr class="mb-3" style="width : 7%; margin : auto">
+
+
+
+{% endblock %}
+{% block javascript %}
+     
+{% endblock %}  

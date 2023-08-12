@@ -6,6 +6,7 @@ use App\Entity\ProprietaireTerrainCf;
 use App\Entity\TerrainCf;
 use App\Form\ProprietaireTerrainCfType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProprietaireTerrainCfController extends AbstractController
 {
-    #[Route('admin/proprietaire/terrain/cf', name: 'app_admin_proprietaire_terrain_cf')]
+    #[Route('admin/proprietaire/terrain/cf', name: 'app_admin_proprietaire_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesProprietaireTerrainCf(ManagerRegistry $doctrine): Response
     {
 
@@ -23,7 +26,9 @@ class ProprietaireTerrainCfController extends AbstractController
             'propietaireTerrainCfs' => $proprietaireTerrainCf
         ]);
     }
-    #[Route('admin/proprietaire/terrain/cf/show{id?0}', name: 'app_admin_show_proprietaire_terrain_cf')]
+    #[Route('admin/proprietaire/terrain/cf/show{id?0}', name: 'app_admin_show_proprietaire_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function showProprietaireTerrainTitre($id ,ProprietaireTerrainCf $proprietaireTerrainCf=null , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(TerrainCf::class);
@@ -36,7 +41,9 @@ class ProprietaireTerrainCfController extends AbstractController
 
     ///////
 
-    #[Route('admin/proprietaire/terrain/cf/edit{id?0}', name: 'app_admin_add_proprietaire_terrain_cf')]
+    #[Route('admin/proprietaire/terrain/cf/edit{id?0}', name: 'app_admin_add_proprietaire_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addProprietaireTerrainCf(ProprietaireTerrainCf $proprietaireTerrainCf=null , ManagerRegistry $doctrine , Request $request): Response
     {
         $new = false ; 
@@ -72,7 +79,9 @@ class ProprietaireTerrainCfController extends AbstractController
     }
 
 
-    #[Route('admin/proprietaire/terrain/cf/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_terrain_cf')]
+    #[Route('admin/proprietaire/terrain/cf/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireTerrainCfConfirmation(ProprietaireTerrainCf $proprietaireTerrainCf = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireTerrainCf) {
@@ -88,7 +97,9 @@ class ProprietaireTerrainCfController extends AbstractController
             'deleteConfirmationLink' => $deleteConfirmationLink,
         ]);
     }
-    #[Route('admin/proprietaire/terrain/cf/delete/{id}', name: 'app_admin_delete_proprietaire_terrain_cf')]
+    #[Route('admin/proprietaire/terrain/cf/delete/{id}', name: 'app_admin_delete_proprietaire_terrain_cf'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireTerrainCf(ProprietaireTerrainCf $proprietaireTerrainCf = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireTerrainCf) {
@@ -104,9 +115,4 @@ class ProprietaireTerrainCfController extends AbstractController
         $this->addFlash("success", "Le proprietaire a été supprimé avec succès");
         return $this->redirectToRoute("app_admin_proprietaire_terrain_cf");
     }
-
-
-
-
-
 }

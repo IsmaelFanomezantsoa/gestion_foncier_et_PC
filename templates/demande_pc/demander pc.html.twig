@@ -1,0 +1,43 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Tous mes terrains cadastres{% endblock %}
+{% block css %}
+<style> 
+    {# th:nth-child(6),
+    td:nth-child(6) {
+    width: 120px; /* Par exemple, une largeur fixe de 200 pixels */
+    max-width: 120px; /* Pour s'assurer que la largeur ne dépasse pas 200 pixels */
+    white-space: nowrap; /* Pour empêcher le retour à la ligne du contenu */
+    overflow: hidden; /* Pour cacher le contenu débordant */
+    text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
+    } #}
+    th,
+    td {
+    width: 80px; /* Par exemple, une largeur fixe de 200 pixels */
+    max-width: 80px; /* Pour s'assurer que la largeur ne dépasse pas 200 pixels */
+    white-space: nowrap; /* Pour empêcher le retour à la ligne du contenu */
+    overflow: hidden; /* Pour cacher le contenu débordant */
+    text-overflow: ellipsis; /* Pour afficher des points de suspension (...) si le contenu est coupé */
+    }
+    
+
+</style>
+{% endblock %}
+{% block body %}
+
+        <div class="title mt-2 " style =" display  : flex ; aling-items: center; justify-content : center">
+            <h3>Demander PC</h3>
+        </div>
+        {{ form(form) }}
+           
+    
+    <hr class="mb-3" style="width : 50% ; margin : auto">
+    <hr class="mb-3" style="width : 25%; margin : auto">
+    <hr class="mb-3" style="width : 13%; margin : auto">
+    <hr class="mb-3" style="width : 7%; margin : auto">
+
+
+{% endblock %}
+{% block javascript %}
+    
+{% endblock %}  

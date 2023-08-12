@@ -1,0 +1,34 @@
+{% extends 'baseSecurity.html.twig' %}
+
+{% block title %}S'inscrire{% endblock %}
+{% block css %} 
+    <style>
+        
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid col-lg-4 col-md-6  col-sm-12 mt-5 "  style=" padding : 20px">
+        <h3 class="h3 mb-3 font-weight-normal text-center">Inscrivez-vous</h3>
+
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.cin, {
+                label: 'Carte  d\'identité nationale'
+            }) }}
+
+
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe'
+            }) }}
+            {{ form_row(registrationForm.confirmation_password, {
+                label: 'Confirmer le mot de passe'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <div class="row center d-flex justify-content-center" >
+                <a  class="btn  btn-outline-secondary  col-md-5 col-sm-12 m-1" href={{ path('app_login') }}>Se connecter</a>
+                <button  class="btn  btn-primary col-md-5 col-sm-12 m-1" >S'inscrire</button>
+            </div>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

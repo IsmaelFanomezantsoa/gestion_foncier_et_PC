@@ -15,12 +15,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Services\UploaderImage;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use function PHPSTORM_META\type;
 
 class TerrainTitreController extends AbstractController
 {
-    #[Route('admin/terrain/titre', name: 'app_admin_terrain_titre')]
+    #[Route('admin/terrain/titre', name: 'app_admin_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesTerrainTitre(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(TerrainTitre::class);
@@ -29,7 +32,9 @@ class TerrainTitreController extends AbstractController
             'all_terrain_titres'=> $all_terrain_titres
         ]);
     }
-    #[Route('admin/terrain/titre/show/{id?0<\d+>}', name: 'app_admin_show_terrain_titre', requirements: ['id' => '\d+'])]
+    #[Route('admin/terrain/titre/show/{id?0<\d+>}', name: 'app_admin_show_terrain_titre', requirements: ['id' => '\d+']), 
+    IsGranted('ROLE_ADMIN') 
+    ]
     public function AffichageTerrainTitre( $id ,TerrainTitre $terrainTitre , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Contenance::class);
@@ -41,7 +46,9 @@ class TerrainTitreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/titre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_titre')]
+    #[Route('admin/terrain/titre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainTitreConfirmation(TerrainTitre $terrainTitre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainTitre) {
@@ -58,7 +65,9 @@ class TerrainTitreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/titre/delete/{id}', name: 'app_admin_delete_terrain_titre')]
+    #[Route('admin/terrain/titre/delete/{id}', name: 'app_admin_delete_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainTitre(TerrainTitre $terrainTitre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainTitre) {
@@ -80,7 +89,9 @@ class TerrainTitreController extends AbstractController
 /////////////////////////////////////////
 
     
-    #[Route('admin/terrain/titre/edit{id?0 }', name: 'app_admin_add_terrain_titre')]
+    #[Route('admin/terrain/titre/edit{id?0 }', name: 'app_admin_add_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addTerrainTitre(TerrainTitre $terrainTitre=null , ManagerRegistry $doctrine ,Request $request , UploaderImage  $uploaderImage): Response
     {
         $new = false;
@@ -149,7 +160,9 @@ class TerrainTitreController extends AbstractController
         
     }
 
-    #[Route('admin/terrain/titre/Contenance/edit/{id?0}', name: 'app_admin_terrain_titre_edit_contenance')]
+    #[Route('admin/terrain/titre/Contenance/edit/{id?0}', name: 'app_admin_terrain_titre_edit_contenance'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
     {
         $idTerrainCible = $request->query->get('idTerrain');
@@ -227,7 +240,9 @@ class TerrainTitreController extends AbstractController
 
     
     //////////////////////
-    #[Route('admin/terrain/titre/confirmationDeleteContenanceTerrainTitre/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_titre')]
+    #[Route('admin/terrain/titre/confirmationDeleteContenanceTerrainTitre/{id}', name: 'app_admin_confirmation_delete_contenance_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceTerrainTitreConfirmation(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$contenance) {
@@ -247,7 +262,9 @@ class TerrainTitreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/titre/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_titre')]
+    #[Route('admin/terrain/titre/deleteContenance/{id}', name: 'app_admin_delete_contenance_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceTerrainTitre(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
        

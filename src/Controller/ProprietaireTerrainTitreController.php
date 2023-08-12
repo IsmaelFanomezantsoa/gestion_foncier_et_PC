@@ -7,6 +7,7 @@ use App\Entity\ProprietaireTerrainTitre;
 use App\Entity\TerrainTitre;
 use App\Form\ProprietaireTerrainTitreType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProprietaireTerrainTitreController extends AbstractController
 {
-    #[Route('admin/proprietaire/terrain/titre', name: 'app_admin_proprietaire_terrain_titre')]
+    #[Route('admin/proprietaire/terrain/titre', name: 'app_admin_proprietaire_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesProprietaireTerrainTitre(ManagerRegistry $doctrine): Response
     {
 
@@ -24,7 +27,9 @@ class ProprietaireTerrainTitreController extends AbstractController
             'propietaireTerrainTitres' => $proprietaireTerrainTitre
         ]);
     }
-    #[Route('admin/proprietaire/terrain/titre/show{id?0}', name: 'app_admin_show_proprietaire_terrain_titre')]
+    #[Route('admin/proprietaire/terrain/titre/show{id?0}', name: 'app_admin_show_proprietaire_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function showProprietaireTerrainTitre($id ,ProprietaireTerrainTitre $proprietaireTerrainTitre=null , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(TerrainTitre::class);
@@ -35,7 +40,9 @@ class ProprietaireTerrainTitreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/proprietaire/terrain/titre/edit{id?0}', name: 'app_admin_add_proprietaire_terrain_titre')]
+    #[Route('admin/proprietaire/terrain/titre/edit{id?0}', name: 'app_admin_add_proprietaire_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addProprietaireTerrainTitre(ProprietaireTerrainTitre $proprietaireTerrainTitre=null , ManagerRegistry $doctrine , Request $request): Response
     {
         $new = false ; 
@@ -73,7 +80,9 @@ class ProprietaireTerrainTitreController extends AbstractController
     //////////////
 
 
-    #[Route('admin/proprietaire/terrain/titre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_terrain_titre')]
+    #[Route('admin/proprietaire/terrain/titre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireTerrainTitreConfirmation(ProprietaireTerrainTitre $proprietaireTerrainTitre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireTerrainTitre) {
@@ -90,7 +99,9 @@ class ProprietaireTerrainTitreController extends AbstractController
             'urlCancel'=> $urlCancel
         ]);
     }
-    #[Route('admin/proprietaire/terrain/titre/delete/{id}', name: 'app_admin_delete_proprietaire_terrain_titre')]
+    #[Route('admin/proprietaire/terrain/titre/delete/{id}', name: 'app_admin_delete_proprietaire_terrain_titre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireTerrainTitre(ProprietaireTerrainTitre $proprietaireTerrainTitre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireTerrainTitre) {

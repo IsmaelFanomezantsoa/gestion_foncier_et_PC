@@ -11,6 +11,7 @@ use App\Form\ParcelleType;
 use App\Form\TerrainCadastreType;
 use App\Services\UploaderImage;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TerrainCadastreController extends AbstractController
 {
-    #[Route('admin/terrain/cadastre', name: 'app_admin_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre', name: 'app_admin_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesTerrainCadastre(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(TerrainCadastre::class);
@@ -28,7 +31,9 @@ class TerrainCadastreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cadastre/show/{id?0<\d+>}', name: 'app_admin_show_terrain_cadastre', requirements: ['id' => '\d+'])]
+    #[Route('admin/terrain/cadastre/show/{id?0<\d+>}', name: 'app_admin_show_terrain_cadastre', requirements: ['id' => '\d+']), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function AffichageTerrainCadastre( $id ,TerrainCadastre $terrainCadastre , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Parcelle::class);
@@ -41,7 +46,9 @@ class TerrainCadastreController extends AbstractController
     }
 
     /////////////////////////
-    #[Route('admin/terrain/cadastre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainCadastreConfirmation(TerrainCadastre $terrainCadastre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainCadastre) {
@@ -58,7 +65,9 @@ class TerrainCadastreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cadastre/delete/{id}', name: 'app_admin_delete_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/delete/{id}', name: 'app_admin_delete_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteTerrainCadastre(TerrainCadastre $terrainCadastre = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$terrainCadastre) {
@@ -80,7 +89,9 @@ class TerrainCadastreController extends AbstractController
 /////////////////////////////////////////
 
     
-    #[Route('admin/terrain/cadastre/edit{id?0 }', name: 'app_admin_add_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/edit{id?0 }', name: 'app_admin_add_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addTerrainCadastre(TerrainCadastre $terrainCadastre=null , ManagerRegistry $doctrine ,Request $request , UploaderImage  $uploaderImage): Response
     {
         $new = false;
@@ -136,7 +147,9 @@ class TerrainCadastreController extends AbstractController
     }
 
     //////////////////////
-    #[Route('admin/terrain/cadastre/confirmationDeleteParcelleTerrainCadastre/{id}', name: 'app_admin_confirmation_delete_parcelle_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/confirmationDeleteParcelleTerrainCadastre/{id}', name: 'app_admin_confirmation_delete_parcelle_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteParcelleTerrainCadastreConfirmation(Parcelle $parcelle = null, $id, ManagerRegistry $doctrine): Response
     {
 
@@ -157,7 +170,9 @@ class TerrainCadastreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cadastre/deleteParcelle/{id}', name: 'app_admin_delete_parcelle_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/deleteParcelle/{id}', name: 'app_admin_delete_parcelle_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteParcelleTerrainCadastre(Parcelle $parcelle = null, $id, ManagerRegistry $doctrine): Response
     {
     
@@ -179,7 +194,9 @@ class TerrainCadastreController extends AbstractController
         $this->addFlash("success", "Parcelle supprimée avec succès");
         return $this->redirect($urlAfterDelete);
     }
-    #[Route('admin/terrain/cadastre/show/parcelle/{id?0<\d+>}', name: 'app_admin_show_parcelle_terrain_cadastre', requirements: ['id' => '\d+'])]
+    #[Route('admin/terrain/cadastre/show/parcelle/{id?0<\d+>}', name: 'app_admin_show_parcelle_terrain_cadastre', requirements: ['id' => '\d+']), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function AffichageParcelleTerrainCadastre( $id ,Parcelle $parcelle , ManagerRegistry $doctrine): Response
     {
         if(!$parcelle){
@@ -195,7 +212,9 @@ class TerrainCadastreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cadastre/parcelle/edit{id?0 }', name: 'app_admin_add_parcelle_terrain_cadastre')]
+    #[Route('admin/terrain/cadastre/parcelle/edit{id?0 }', name: 'app_admin_add_parcelle_terrain_cadastre'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addParcelleTerrainCadastre(Parcelle $parcelle=null , ManagerRegistry $doctrine ,Request $request , UploaderImage  $uploaderImage): Response
     {
 
@@ -314,7 +333,9 @@ class TerrainCadastreController extends AbstractController
     }
 
     //////////////////////
-    #[Route('admin/terrain/cadastre/confirmationDeleteContenanceParcelle/{id}', name: 'app_admin_confirmation_delete_contenance_parcelle')]
+    #[Route('admin/terrain/cadastre/confirmationDeleteContenanceParcelle/{id}', name: 'app_admin_confirmation_delete_contenance_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceParcelleConfirmation(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$contenance) {
@@ -334,7 +355,9 @@ class TerrainCadastreController extends AbstractController
         ]);
     }
 
-    #[Route('admin/terrain/cadastre/deleteContenanceParcelle/{id}', name: 'app_admin_delete_contenance_parcelle')]
+    #[Route('admin/terrain/cadastre/deleteContenanceParcelle/{id}', name: 'app_admin_delete_contenance_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteContenanceParcelle(Contenance $contenance = null, $id, ManagerRegistry $doctrine): Response
     {
        
@@ -357,7 +380,9 @@ class TerrainCadastreController extends AbstractController
         return $this->redirect($urlAfterDelete);
     }
 
-    #[Route('admin/terrain/cadastre/Contenance/edit/{id?0}', name: 'app_admin_terrain_cadastre_edit_contenance')]
+    #[Route('admin/terrain/cadastre/Contenance/edit/{id?0}', name: 'app_admin_terrain_cadastre_edit_contenance'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function editContenance(Contenance $contenance=null , ManagerRegistry $doctrine , Request $request): Response
     {
 

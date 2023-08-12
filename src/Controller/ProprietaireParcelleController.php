@@ -6,6 +6,7 @@ use App\Entity\Parcelle;
 use App\Entity\ProprietaireParcelle;
 use App\Form\ProprietaireParcelleType;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProprietaireParcelleController extends AbstractController
 {
-    #[Route('admin/proprietaire/parcelle', name: 'app_admin_proprietaire_parcelle')]
+    #[Route('admin/proprietaire/parcelle', name: 'app_admin_proprietaire_parcelle') , 
+        IsGranted('ROLE_ADMIN')
+    ]
     public function tousLesProprietaireParcelle(ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(ProprietaireParcelle::class);
@@ -27,7 +30,9 @@ class ProprietaireParcelleController extends AbstractController
 
 
     /////////////////
-    #[Route('admin/proprietaire/parcelle/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_parcelle')]
+    #[Route('admin/proprietaire/parcelle/confirmationDelete/{id}', name: 'app_admin_confirmation_delete_proprietaire_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireParcelleConfirmation(ProprietaireParcelle $proprietaireParcelle = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireParcelle) {
@@ -44,7 +49,9 @@ class ProprietaireParcelleController extends AbstractController
             'urlCancel'=> $urlCancel
         ]);
     }
-    #[Route('admin/proprietaire/parcelle/delete/{id}', name: 'app_admin_delete_proprietaire_parcelle')]
+    #[Route('admin/proprietaire/parcelle/delete/{id}', name: 'app_admin_delete_proprietaire_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function deleteProprietaireParcelle(ProprietaireParcelle $proprietaireParcelle = null, $id, ManagerRegistry $doctrine): Response
     {
         if (!$proprietaireParcelle) {
@@ -62,7 +69,9 @@ class ProprietaireParcelleController extends AbstractController
     }
 
 
-    #[Route('admin/proprietaire/parcelle/show{id?0}', name: 'app_admin_show_proprietaire_parcelle')]
+    #[Route('admin/proprietaire/parcelle/show{id?0}', name: 'app_admin_show_proprietaire_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function showProprietaireParcelle($id ,ProprietaireParcelle $proprietaireParcelle=null , ManagerRegistry $doctrine): Response
     {
         $repository = $doctrine->getRepository(Parcelle::class);
@@ -72,7 +81,9 @@ class ProprietaireParcelleController extends AbstractController
             "all_terrains"=>$SesTerrains
         ]);
     }
-    #[Route('admin/proprietaire/parcelle/edit{id?0}', name: 'app_admin_add_proprietaire_parcelle')]
+    #[Route('admin/proprietaire/parcelle/edit{id?0}', name: 'app_admin_add_proprietaire_parcelle'), 
+    IsGranted('ROLE_ADMIN')
+    ]
     public function addProprietaireParcelle(ProprietaireParcelle $proprietaireParcelle=null , ManagerRegistry $doctrine , Request $request): Response
     {
         $new = false ; 
